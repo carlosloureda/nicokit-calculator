@@ -122,6 +122,10 @@ const NicotineCalculator = ({ params }) => {
 
   const getResult = () => {
     let result = daily_nicotine_mgs_smoking / final_nicotine_mg;
+    console.log(
+      "result < 1 ? 1 : Math.floor(result);: ",
+      result < 1 ? 1 : Math.floor(result)
+    );
     return result < 1 ? 1 : Math.floor(result);
   };
 
@@ -262,8 +266,7 @@ const NicotineCalculator = ({ params }) => {
                   Con una concentración de {final_nicotine_mg} mg/ml de nicotina
                 </h3>
                 <h3>
-                  Para un total de <strong>{getResult}ml</strong>
-                  diarios
+                  Para un total de <strong>{getResult()}ml</strong> diarios
                 </h3>
               </div>
             </>
