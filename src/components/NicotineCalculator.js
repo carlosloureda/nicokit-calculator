@@ -126,10 +126,11 @@ const NicotineCalculator = ({ params }) => {
   };
 
   return (
-    <div className={classes.container}>
-      <form className={classes.formContainer} noValidate autoComplete="off">
-        <h1>Calcula tus mezclas de nicotina</h1>
-        {/* <div>
+    <>
+      <div className={classes.container}>
+        <form className={classes.formContainer} noValidate autoComplete="off">
+          <h1>Calcula tus mezclas de nicotina</h1>
+          {/* <div>
           <p>
             A continuación tienes una calculadora para calcular la cantidad de
             nicotina (mg/ml) que debes comprar de nicokit.{" "}
@@ -142,133 +143,152 @@ const NicotineCalculator = ({ params }) => {
             tienda.
           </p>
         </div> */}
-        <TextField
-          label="¿Cuantos cigarrillos al día fumas?"
-          type="number"
-          className={classes.textField}
-          value={daily_cigarrettes_count}
-          onChange={e => handleDailyCigarretes(e, "daily_cigarrettes_count")}
-          onFocus={e =>
-            !daily_cigarrettes_count
-              ? handleFocus(e, "daily_cigarrettes_count")
-              : null
-          }
-          margin="normal"
-          variant="outlined"
-          /* Gracias a :https://stackblitz.com/edit/material-ui-custom-outline-color*/
-          InputLabelProps={{
-            classes: {
-              root: classes.cssLabel,
-              focused: classes.cssFocused
+          <TextField
+            label="¿Cuantos cigarrillos al día fumas?"
+            type="number"
+            className={classes.textField}
+            value={daily_cigarrettes_count}
+            onChange={e => handleDailyCigarretes(e, "daily_cigarrettes_count")}
+            onFocus={e =>
+              !daily_cigarrettes_count
+                ? handleFocus(e, "daily_cigarrettes_count")
+                : null
             }
-          }}
-          InputProps={{
-            classes: {
-              root: classes.cssOutlinedInput,
-              focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline,
-              input: classes.input
-            },
-            inputMode: "numeric"
-          }}
-        />
-        {/* TODO: Aqui preguntamos por el tipo de tabaco que fuma para buscar
+            margin="normal"
+            variant="outlined"
+            /* Gracias a :https://stackblitz.com/edit/material-ui-custom-outline-color*/
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel,
+                focused: classes.cssFocused
+              }
+            }}
+            InputProps={{
+              classes: {
+                root: classes.cssOutlinedInput,
+                focused: classes.cssFocused,
+                notchedOutline: classes.notchedOutline,
+                input: classes.input
+              },
+              inputMode: "numeric"
+            }}
+          />
+          {/* TODO: Aqui preguntamos por el tipo de tabaco que fuma para buscar
           tablas en el futuro */}
 
-        {daily_nicotine_mgs_smoking && (
-          <p style={{ marginLeft: "1em" }}>
-            Tu media de nicotina diaria es de:{" "}
-            <strong>{daily_nicotine_mgs_smoking}mg</strong> (miligramos)
-          </p>
-        )}
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel
-            ref={inputLabel}
-            htmlFor="outlined-age-simple"
-            className={classes.label}
-          >
-            ¿De cuantos mg/ml quieres el nicokit?
-          </InputLabel>
-          <Select
-            value={nicokit_mg}
-            onChange={e => handleChange(e, "nicokit_mg")}
-            input={
-              <OutlinedInput
-                labelWidth={labelWidth}
-                classes={{
-                  input: classes.input,
-                  root: classes.cssOutlinedInput,
-                  focused: classes.cssFocused,
-                  notchedOutline: classes.notchedOutline
-                }}
-              />
-            }
-          >
-            <MenuItem value={0}>0</MenuItem>
-            <MenuItem value={6}>6</MenuItem>
-            <MenuItem value={12}>12</MenuItem>
-            <MenuItem value={18}>18</MenuItem>
-          </Select>
-        </FormControl>
-        {nicokit_mg_recommended && (
-          <div>
+          {daily_nicotine_mgs_smoking && (
             <p style={{ marginLeft: "1em" }}>
-              La cantidad del nicotina ha sido ajustada por el algoritmo a{" "}
-              <strong>
-                {nicokit_mg_recommended ? (
-                  nicokit_mg_recommended + "mg/ml"
-                ) : (
-                  <i>Indica nº cigarrillos al día primero</i>
-                )}
-              </strong>
+              Tu media de nicotina diaria es de:{" "}
+              <strong>{daily_nicotine_mgs_smoking}mg</strong> (miligramos)
             </p>
-          </div>
-        )}
-        <TextField
-          label="De cuantos ml es el tu líquido (libre de nicotina)"
-          type="number"
-          className={classes.textField}
-          value={non_nicotine_liquid_ml}
-          onChange={e => handleChange(e, "non_nicotine_liquid_ml")}
-          onFocus={e =>
-            !non_nicotine_liquid_ml
-              ? handleFocus(e, "non_nicotine_liquid_ml")
-              : null
-          }
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            classes: {
-              root: classes.cssLabel,
-              focused: classes.cssFocused
-            }
-          }}
-          InputProps={{
-            classes: {
-              root: classes.cssOutlinedInput,
-              focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline,
-              input: classes.input
-            },
-            inputMode: "numeric"
-          }}
-        />
-        {final_nicotine_mg && (
-          <>
-            <div className={classes.results}>
-              <h3>Te queda un líquido total de {final_total_volumen} ml.</h3>
-              <h3>
-                Con una concentración de {final_nicotine_mg} mg/ml de nicotina
-              </h3>
-              <h3>
-                Para un total de <strong>{getResult}ml</strong>
-                diarios
-              </h3>
+          )}
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel
+              ref={inputLabel}
+              htmlFor="outlined-age-simple"
+              className={classes.label}
+            >
+              ¿De cuantos mg/ml quieres el nicokit?
+            </InputLabel>
+            <Select
+              value={nicokit_mg}
+              onChange={e => handleChange(e, "nicokit_mg")}
+              input={
+                <OutlinedInput
+                  labelWidth={labelWidth}
+                  classes={{
+                    input: classes.input,
+                    root: classes.cssOutlinedInput,
+                    focused: classes.cssFocused,
+                    notchedOutline: classes.notchedOutline
+                  }}
+                />
+              }
+            >
+              <MenuItem value={0}>0</MenuItem>
+              <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={12}>12</MenuItem>
+              <MenuItem value={18}>18</MenuItem>
+            </Select>
+          </FormControl>
+          {nicokit_mg_recommended && (
+            <div>
+              <p style={{ marginLeft: "1em" }}>
+                La cantidad del nicotina ha sido ajustada por el algoritmo a{" "}
+                <strong>
+                  {nicokit_mg_recommended ? (
+                    nicokit_mg_recommended + "mg/ml"
+                  ) : (
+                    <i>Indica nº cigarrillos al día primero</i>
+                  )}
+                </strong>
+              </p>
             </div>
-          </>
-        )}
-      </form>
-    </div>
+          )}
+          <TextField
+            label="De cuantos ml es el tu líquido (libre de nicotina)"
+            type="number"
+            className={classes.textField}
+            value={non_nicotine_liquid_ml}
+            onChange={e => handleChange(e, "non_nicotine_liquid_ml")}
+            onFocus={e =>
+              !non_nicotine_liquid_ml
+                ? handleFocus(e, "non_nicotine_liquid_ml")
+                : null
+            }
+            margin="normal"
+            variant="outlined"
+            InputLabelProps={{
+              classes: {
+                root: classes.cssLabel,
+                focused: classes.cssFocused
+              }
+            }}
+            InputProps={{
+              classes: {
+                root: classes.cssOutlinedInput,
+                focused: classes.cssFocused,
+                notchedOutline: classes.notchedOutline,
+                input: classes.input
+              },
+              inputMode: "numeric"
+            }}
+          />
+          {final_nicotine_mg && (
+            <>
+              <div className={classes.results}>
+                <h3>Te queda un líquido total de {final_total_volumen} ml.</h3>
+                <h3>
+                  Con una concentración de {final_nicotine_mg} mg/ml de nicotina
+                </h3>
+                <h3>
+                  Para un total de <strong>{getResult}ml</strong>
+                  diarios
+                </h3>
+              </div>
+            </>
+          )}
+        </form>
+      </div>
+      <div
+        style={{
+          paddingRight: "4em",
+          backgroundColor: "black",
+          color: "white",
+          fontSize: "2em",
+          textAlign: "center"
+        }}
+      >
+        Foto de{" "}
+        <a
+          style={{ color: "grey" }}
+          href="https://www.pexels.com/es-es/@victor-soldevilla-296093?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels"
+        >
+          Victor Soldevilla
+        </a>{" "}
+        en Pexels
+      </div>
+    </>
   );
 };
 
@@ -377,6 +397,3 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default NicotineCalculator;
-
-// Foto de Victor Soldevilla en Pexels,
-// https://www.pexels.com/es-es/@victor-soldevilla-296093?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels
