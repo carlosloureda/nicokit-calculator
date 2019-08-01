@@ -211,8 +211,10 @@ const NicotineCalculator = ({ params }) => {
             >
               <MenuItem value={0}>0</MenuItem>
               <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
               <MenuItem value={12}>12</MenuItem>
               <MenuItem value={18}>18</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
             </Select>
           </FormControl>
           {nicokit_mg_recommended && (
