@@ -270,7 +270,7 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
     flexDirection: "column",
-    margin: "20px",
+    // margin: "20px",
     alignItems: "flex-end",
     paddingRight: "8%",
     [theme.breakpoints.up("lg")]: {
@@ -283,6 +283,11 @@ const useStyles = makeStyles(theme => ({
       paddingRight: "2%"
     },
     paddingTop: "28em",
+    [theme.breakpoints.down("sm")]: {
+      paddingTop: "10%",
+      heigth: "100%",
+      width: "100%"
+    },
     backgroundImage: `url(${require("./../img/full-beard-men-snapback-865876.jpg")})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
