@@ -25,7 +25,7 @@ const calculate_nicokit = daily_cigarrettes_count => {
 };
 
 const round_decimals = (num, decimals) =>
-  Math.round((num * Math.pow(10, decimals)) / Math.pow(10, decimals));
+  Math.round(num * Math.pow(10, decimals)) / Math.pow(10, decimals);
 
 const reducer = (state, action) => {
   if (action.type === "handle_change_input") {
