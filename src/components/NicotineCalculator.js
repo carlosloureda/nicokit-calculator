@@ -6,6 +6,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { white } from "ansi-colors";
 
 /* El volumne que damos por defecto al nicokit */
 const NICOKIT_VOLUMEN = 10; //ml
@@ -120,11 +122,16 @@ const NicotineCalculator = ({ params }) => {
     dispatch({ type: "reset_input", field });
   };
 
+  const getResult = () => {
+    let result = daily_nicotine_mgs_smoking / final_nicotine_mg;
+    return result < 1 ? 1 : Math.floor(result);
+  };
+
   return (
     <div className={classes.container}>
-      <h1>Calcula tus mezclas de nicotina</h1>
       <form className={classes.formContainer} noValidate autoComplete="off">
-        <div>
+        <h1>Calcula tus mezclas de nicotina</h1>
+        {/* <div>
           <p>
             A continuación tienes una calculadora para calcular la cantidad de
             nicotina (mg/ml) que debes comprar de nicokit.{" "}
@@ -136,7 +143,7 @@ const NicotineCalculator = ({ params }) => {
             Tomad los resultados como una orientación y comentarlo con vuestra
             tienda.
           </p>
-        </div>
+        </div> */}
         <TextField
           label="¿Cuantos cigarrillos al día fumas?"
           type="number"
@@ -150,18 +157,37 @@ const NicotineCalculator = ({ params }) => {
           }
           margin="normal"
           variant="outlined"
+          /* Gracias a :https://stackblitz.com/edit/material-ui-custom-outline-color*/
+          InputLabelProps={{
+            classes: {
+              root: classes.cssLabel,
+              focused: classes.cssFocused
+            }
+          }}
+          InputProps={{
+            classes: {
+              root: classes.cssOutlinedInput,
+              focused: classes.cssFocused,
+              notchedOutline: classes.notchedOutline
+            },
+            inputMode: "numeric"
+          }}
         />
         {/* TODO: Aqui preguntamos por el tipo de tabaco que fuma para buscar
           tablas en el futuro */}
-        <div />
+
         {daily_nicotine_mgs_smoking && (
-          <p>
+          <p style={{ marginLeft: "1em" }}>
             Tu media de nicotina diaria es de:{" "}
             <strong>{daily_nicotine_mgs_smoking}mg</strong> (miligramos)
           </p>
         )}
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
+          <InputLabel
+            ref={inputLabel}
+            htmlFor="outlined-age-simple"
+            className={classes.label}
+          >
             ¿De cuantos mg/ml quieres el nicokit?
           </InputLabel>
           <Select
@@ -183,8 +209,8 @@ const NicotineCalculator = ({ params }) => {
         </FormControl>
         {nicokit_mg_recommended && (
           <div>
-            <p>
-              La cantidad del nicotine ha sido ajustada por nuestro algoritmo a{" "}
+            <p style={{ marginLeft: "1em" }}>
+              La cantidad del nicotina ha sido ajustada por el algoritmo a{" "}
               <strong>
                 {nicokit_mg_recommended ? (
                   nicokit_mg_recommended + "mg/ml"
@@ -192,14 +218,7 @@ const NicotineCalculator = ({ params }) => {
                   <i>Indica nº cigarrillos al día primero</i>
                 )}
               </strong>
-              , pero puedes cambiarla. Como norma general se sigue esta tabla
-              para la cantidad de nicotina:
             </p>
-            <ul>
-              <li>&lt;10 cigarrillos al día: 6 mg o 12 mg</li>
-              <li>20 cigarrillos al día: 12 mg o 18 mg</li>
-              <li>>20 cigarrillos al día: 18 mg</li>
-            </ul>
           </div>
         )}
         <TextField
@@ -215,25 +234,33 @@ const NicotineCalculator = ({ params }) => {
           }
           margin="normal"
           variant="outlined"
+          InputLabelProps={{
+            classes: {
+              root: classes.cssLabel,
+              focused: classes.cssFocused
+            }
+          }}
+          InputProps={{
+            classes: {
+              root: classes.cssOutlinedInput,
+              focused: classes.cssFocused,
+              notchedOutline: classes.notchedOutline
+            },
+            inputMode: "numeric"
+          }}
         />
-        {/* <p>
-          Asumimmos venta de nicokits de 10 ml y envases de liquidos de 25, 50 o
-          100 ml
-        </p> */}
         {final_nicotine_mg && (
           <>
-            <h1>
-              Te queda un líquido total de {final_total_volumen} ml con una
-              concentración de {final_nicotine_mg} mg/ml de nicotina
-            </h1>
-            <p>
-              Por lo que al día deberías podrías llegar a vapear hasta unos{" "}
-              <strong>
-                {Math.floor(daily_nicotine_mgs_smoking / final_nicotine_mg)}
-                ml
-              </strong>{" "}
-              (mililitros)
-            </p>
+            <div className={classes.results}>
+              <h3>Te queda un líquido total de {final_total_volumen} ml.</h3>
+              <h3>
+                Con una concentración de {final_nicotine_mg} mg/ml de nicotina
+              </h3>
+              <h3>
+                Para un total de <strong>{getResult}ml</strong>
+                diarios
+              </h3>
+            </div>
           </>
         )}
       </form>
@@ -244,14 +271,39 @@ const NicotineCalculator = ({ params }) => {
 const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
-    "flex-direction": "column",
+    flexDirection: "column",
     margin: "20px",
-    alignItems: "center"
+    alignItems: "flex-end",
+    paddingRight: "8%",
+    [theme.breakpoints.up("lg")]: {
+      paddingRight: "18%"
+    },
+    [theme.breakpoints.down("lg")]: {
+      paddingRight: "8%"
+    },
+    [theme.breakpoints.down("md")]: {
+      paddingRight: "2%"
+    },
+    paddingTop: "28em",
+    backgroundImage: `url(${require("./../img/full-beard-men-snapback-865876.jpg")})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
+    minHeight: 1000
   },
+
   formContainer: {
     display: "flex",
-    "flex-direction": "column",
-    "max-width": "800px"
+    flexDirection: "column",
+    // alignItems: "center",
+    // paddingRight: "8em",
+    maxWidth: "800px",
+
+    [theme.breakpoints.down("sm")]: {
+      color: "white",
+      backgroundColor: "#0000002e" // rgba(49, 49, 58, 0.058823529411764705)
+    },
+    backgroundColor: "#31313a0f" // rgba(49, 49, 58, 0.058823529411764705)
 
     // "align-items": "center"
     // flexWrap: "wrap"
@@ -259,9 +311,31 @@ const useStyles = makeStyles(theme => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
+    // color: "rgb(55, 54, 152)"
   },
   dense: {
     marginTop: theme.spacing(2)
+  },
+  label: {
+    color: "white",
+    fontSize: "1.2em"
+  },
+  cssLabel: {
+    color: "white",
+    fontSize: "1.2em"
+  },
+
+  cssOutlinedInput: {
+    "&$cssFocused $notchedOutline": {
+      borderColor: `white !important`
+    }
+  },
+
+  cssFocused: {},
+
+  notchedOutline: {
+    borderWidth: "1px",
+    borderColor: "white !important"
   },
   menu: {
     width: 200
@@ -269,7 +343,16 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120
+  },
+  results: {
+    alignSelf: "center",
+    width: "100%",
+    color: "#dad7d9" /*"#b412e9"*/,
+    backgroundColor: "rgba(49, 49, 58, 0.3)"
   }
 }));
 
 export default NicotineCalculator;
+
+// Foto de Victor Soldevilla en Pexels,
+// https://www.pexels.com/es-es/@victor-soldevilla-296093?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels
