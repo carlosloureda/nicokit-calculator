@@ -166,7 +166,8 @@ const NicotineCalculator = ({ params }) => {
             classes: {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline
+              notchedOutline: classes.notchedOutline,
+              input: classes.input
             },
             inputMode: "numeric"
           }}
@@ -194,8 +195,12 @@ const NicotineCalculator = ({ params }) => {
             input={
               <OutlinedInput
                 labelWidth={labelWidth}
-                name="age"
-                id="outlined-age-simple"
+                classes={{
+                  input: classes.input,
+                  root: classes.cssOutlinedInput,
+                  focused: classes.cssFocused,
+                  notchedOutline: classes.notchedOutline
+                }}
               />
             }
           >
@@ -242,7 +247,8 @@ const NicotineCalculator = ({ params }) => {
             classes: {
               root: classes.cssOutlinedInput,
               focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline
+              notchedOutline: classes.notchedOutline,
+              input: classes.input
             },
             inputMode: "numeric"
           }}
@@ -316,29 +322,44 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
     // color: "rgb(55, 54, 152)"
   },
+  input: {
+    [theme.breakpoints.down("sm")]: {
+      color: "white"
+    }
+  },
   dense: {
     marginTop: theme.spacing(2)
   },
   label: {
-    color: "white",
+    [theme.breakpoints.down("sm")]: {
+      color: "white"
+    },
     fontSize: "1.2em"
   },
   cssLabel: {
-    color: "white",
+    [theme.breakpoints.down("sm")]: {
+      color: "white"
+    },
     fontSize: "1.2em"
   },
 
   cssOutlinedInput: {
-    "&$cssFocused $notchedOutline": {
-      borderColor: `white !important`
+    [theme.breakpoints.down("sm")]: {
+      "&$cssFocused $notchedOutline": {
+        borderColor: `white !important`,
+        color: "white"
+      },
+      fontSize: "1.2em"
     }
   },
 
   cssFocused: {},
 
   notchedOutline: {
-    borderWidth: "1px",
-    borderColor: "white !important"
+    [theme.breakpoints.down("sm")]: {
+      borderColor: "white !important"
+    },
+    borderWidth: "1px"
   },
   menu: {
     width: 200
