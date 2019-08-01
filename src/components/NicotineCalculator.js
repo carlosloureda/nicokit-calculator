@@ -316,23 +316,16 @@ const useStyles = makeStyles(theme => ({
   formContainer: {
     display: "flex",
     flexDirection: "column",
-    // alignItems: "center",
-    // paddingRight: "8em",
     maxWidth: "800px",
-
     [theme.breakpoints.down("sm")]: {
       color: "white",
       backgroundColor: "#0000002e" // rgba(49, 49, 58, 0.058823529411764705)
     },
     backgroundColor: "#31313a0f" // rgba(49, 49, 58, 0.058823529411764705)
-
-    // "align-items": "center"
-    // flexWrap: "wrap"
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
-    // color: "rgb(55, 54, 152)"
   },
   input: {
     [theme.breakpoints.down("sm")]: {
@@ -364,9 +357,7 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.2em"
     }
   },
-
   cssFocused: {},
-
   notchedOutline: {
     [theme.breakpoints.down("sm")]: {
       borderColor: "white !important"
