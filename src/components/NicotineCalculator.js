@@ -270,15 +270,7 @@ const NicotineCalculator = ({ params }) => {
           )}
         </form>
       </div>
-      <div
-        style={{
-          paddingRight: "4em",
-          backgroundColor: "black",
-          color: "white",
-          fontSize: "2em",
-          textAlign: "center"
-        }}
-      >
+      <div className={classes.footer}>
         Foto de{" "}
         <a
           style={{ color: "grey" }}
@@ -393,6 +385,18 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     color: "#dad7d9" /*"#b412e9"*/,
     backgroundColor: "rgba(49, 49, 58, 0.3)"
+  },
+  footer: {
+    paddingRight: "4em",
+    backgroundColor: "black",
+    color: "white",
+    fontSize: "2em",
+    textAlign: "center",
+    width: "100%",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1em",
+      paddingRight: "4em"
+    }
   }
 }));
 
